@@ -10,6 +10,10 @@ const empresas = require("./routes/empresaRouter")
 const vagas = require("./routes/vagasRouter")
 const dataBase = require("./model/database");
 
+const swaggerUi = require('swagger-ui-express');
+const swaggerFile = require('../swagger/swagger_output.json');
+
+
 
 require('dotenv-safe').config()
 
@@ -22,6 +26,7 @@ app.use(morgan('dev'))
 app.use(helmet())
 app.use(cors())
 app.use(compression())
+app.use('/minha-rota-de-documentacao', swaggerUi.serve, swaggerUi.setup(swaggerFile));
 
 app.use(function (request, response, next) {
   response.header("Access-Control-Allow-Origin", "*")
